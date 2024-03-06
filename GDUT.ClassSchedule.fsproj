@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <Version>0.1.0</Version>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Library.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="GDUT.Auth" Version="0.1.1" />
+      <PackageReference Include="HtmlAgilityPack" Version="1.11.59" />
+      <PackageReference Include="Microsoft.ClearScript.Core" Version="7.4.4" />
+      <PackageReference Include="Microsoft.ClearScript.V8" Version="7.4.4" />
+      <PackageReference Include="Microsoft.ClearScript.V8.Native.win-x64" Version="7.4.4" />
+      <PackageReference Update="FSharp.Core" Version="8.0.200" />
+    </ItemGroup>
+
+</Project>
