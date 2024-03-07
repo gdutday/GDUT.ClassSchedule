@@ -1,0 +1,34 @@
+﻿name: Build and Publish NuGet Package
+
+on:
+  push:
+    branches:
+      - master  # 当在 main 分支上推送时触发构建
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0.x'  # 指定要使用的 .NET 版本
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release
+
+      - name: Pack NuGet package
+        run: dotnet pack --configuration Release --output nupkgs
+
+      - name: Add Github NuGet Repository
+        run: dotnet nuget add source --username ${{ secrets.USERNAME }} --password ${{ secrets.TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ secrets.NAMESPACE }}/index.json"
+
+      - name: Publish NuGet package
+        run: dotnet nuget push nupkgs/GDUT.Auth.*.nupkg --source github --skip-duplicate
