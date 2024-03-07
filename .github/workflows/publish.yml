@@ -18,6 +18,9 @@ jobs:
         with:
           dotnet-version: '8.0.x'  # 指定要使用的 .NET 版本
 
+      - name: Add Github NuGet Repository
+        run: dotnet nuget add source --username ${{ secrets.USERNAME }} --password ${{ secrets.TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ secrets.NAMESPACE }}/index.json"
+
       - name: Restore dependencies
         run: dotnet restore
 
@@ -26,9 +29,6 @@ jobs:
 
       - name: Pack NuGet package
         run: dotnet pack --configuration Release --output nupkgs
-
-      - name: Add Github NuGet Repository
-        run: dotnet nuget add source --username ${{ secrets.USERNAME }} --password ${{ secrets.TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ secrets.NAMESPACE }}/index.json"
 
       - name: Publish NuGet package
         run: dotnet nuget push nupkgs/GDUT.*.nupkg --source github --skip-duplicate
