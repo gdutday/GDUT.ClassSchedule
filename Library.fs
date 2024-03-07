@@ -6,8 +6,6 @@ open System.Net.Http
 open System.Text.Json
 open System.Text.Json.Serialization
 open System.Text.RegularExpressions
-open HtmlAgilityPack
-open Microsoft.ClearScript.V8
 
 type Course =
     { CourseName: string
@@ -103,13 +101,6 @@ let private getContentStringFromResponse (response: HttpResponseMessage) =
     |> Async.AwaitTask
     |> Async.RunSynchronously
     |> Ok
-
-let private loadJavaScriptFromHtml (engine: V8ScriptEngine) (doc: HtmlDocument) =
-    let getScriptFromBlock (scriptBlock: HtmlNode) = scriptBlock.InnerText
-
-    let scriptBlocks = doc.DocumentNode.SelectNodes("//script")
-    let scripts = scriptBlocks |> Seq.map getScriptFromBlock
-    scripts |> Seq.iter engine.Execute
 
 let getClassSchedule (cookies: CookieCollection) xnxqdm =
     let uriPath = "/xsgrkbcx!xsAllKbList.action"
