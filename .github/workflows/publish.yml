@@ -31,4 +31,4 @@ jobs:
         run: dotnet nuget add source --username ${{ secrets.USERNAME }} --password ${{ secrets.TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ secrets.NAMESPACE }}/index.json"
 
       - name: Publish NuGet package
-        run: dotnet nuget push nupkgs/GDUT.Auth.*.nupkg --source github --skip-duplicate
+        run: dotnet nuget push nupkgs/GDUT.*.nupkg --source github --skip-duplicate
